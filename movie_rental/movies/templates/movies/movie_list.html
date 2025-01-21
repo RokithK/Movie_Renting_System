@@ -1,0 +1,164 @@
+<!-- movies/movie_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #3498db; /* Updated background color to blue */
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            background-color: #2980b9; /* Slightly darker blue for header */
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 20px; /* Add margin to separate from content */
+        }
+
+        .main-content {
+            max-width: 1300px;
+            margin: 20px auto;
+        }
+
+        .featured-movies {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .movie-card {
+            width: calc(30% - 20px);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .movie-card img {
+            width: 75%;
+            height: 30%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-card h3 {
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .movie-card p {
+            margin-bottom: 15px;
+            color: #777;
+        }
+
+        .add-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2980b9; /* Slightly darker blue for buttons */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Adjusted margin */
+        }
+
+        .add-button:hover {
+            background-color: #2574a9; /* Darker color on hover */
+        }
+
+        .container_hov {
+            width: 100%;
+            margin: auto auto;
+        }
+
+        .container_hov img {
+            width: 75%;
+            height: 30%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            transition: all 1s;
+        }
+
+        .container_hov:hover img {
+            transform: scale(1.05);
+            border-radius: 15px;
+        }
+
+        .movie-card:hover .container_hov img {
+            transform: scale(1.05);
+            border-radius: 15px;
+        }
+
+        .login-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #2980b9; /* Slightly darker blue for login button */
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #2574a9; /* Darker color on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="main-content">
+        <header>
+            <h2>Featured Movies</h2>
+        </header>
+
+        <div class="featured-movies" id="movie-list">
+            {% for movie in movies %}
+            <div class="movie-card">
+                <div class="container_hov">
+                    <center>
+                        <img class="center" src="{{ movie.image_url }}" alt="{{ movie.name }}">
+                    </center>
+                </div>
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.description }}</p>
+                <a href="{% url 'movie-update' movie.id %}" class="add-button">Update Movie</a>
+                <a href="{% url 'movie-delete' movie.id %}" class="add-button">Delete Movie</a>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'movie-create' %}" class="add-button">Add a New Movie</a>
+
+        <!-- Add the login button -->
+        <a href="{% url 'login' %}" class="login-button">Logout</a>
+
+    </section>
+
+</body>
+
+</html>

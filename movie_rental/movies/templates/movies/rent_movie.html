@@ -1,0 +1,92 @@
+<!-- movies/rent_movie.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rented Movies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .movie-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .movie-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .rent-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .rent-button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Wanna Rent?</h1>
+    </header>
+
+    <section class="main-content">
+
+            <p class="message">DO you want to rent this movie?</p>
+
+            <form method="post" action="{% url 'rent-movie' movie.id %}">
+                {% csrf_token %}
+                <button type="submit" class="rent-button">Rent Now</button>
+            </form>
+
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+    </section>
+
+</body>
+
+</html>

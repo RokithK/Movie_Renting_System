@@ -1,0 +1,203 @@
+<!-- movies/user_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Movies</title>
+
+    <style>
+        #nigga{
+        height:40px;
+        width:120px;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+
+        .main-content {
+            max-width: 1300px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .movie-card {
+            width: 30%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: deepskyblue;
+
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 10px;
+            color: #555;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #777;
+        }
+
+        .rent-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .rent-button:hover {
+            background-color: #00506b;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 10px;
+            width: 50%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #00506b;
+        }
+
+        .login-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #2c81ba;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="main-content">
+        <div class="search-container">
+            <input type="text" id="movieSearch" class="search-input" placeholder="Search for movies...">
+            <button onclick="searchMovies()" class="search-button">Search</button>
+        </div>
+
+        <h2>Available Movies</h2>
+        {% if movies %}
+            {% for movie in movies %}
+                <div class="movie-card">
+                    <div class="container_hov">
+                        <img src="{{ movie.image_url }}" alt="{{ movie.name }}">
+                    </div>
+                    <h3>{{ movie.title }}</h3>
+                    <p>{{ movie.description }}</p>
+                   <a href="{% url 'rent-movie' movie.id %}" class="add-button">Rent Movie</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No movies available.</p>
+        {% endif %}
+
+        <!-- Add the button for redirecting to login page -->
+        <a href="{% url 'login' %}" class="login-button" id="nigga">Logout</a>
+    </section>
+
+     <script>
+        function searchMovies() {
+            var input = document.getElementById('movieSearch').value.toLowerCase();
+            var cards = document.querySelectorAll('.movie-card');
+
+            cards.forEach(function (card) {
+                var title = card.querySelector('h3').innerText.toLowerCase();
+                var description = card.querySelector('p').innerText.toLowerCase();
+
+                if (title.includes(input) || description.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
